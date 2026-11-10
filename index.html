@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edf5ff">
+  <meta name="description" content="肖泊成的个人作品集，福州大学软件工程专业，聚焦项目实践与软件开发。">
+  <title>肖泊成 · 软件工程作品集</title>
+  <style>
+    :root {
+      --ink: #0b1b30;
+      --muted: #263b54;
+      --blue: #2f67b8;
+      --blue-deep: #163f80;
+      --blue-soft: #dceaff;
+      --line: rgba(76, 114, 168, .16);
+      --paper: rgba(255,255,255,.78);
+      --radius: 24px;
+      --shadow: 0 18px 52px rgba(39, 83, 145, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 0; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      background: #f4f8fd;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    body::before {
+      position: fixed; inset: 0; z-index: -2; content: "";
+      background:
+        radial-gradient(ellipse at 10% 5%, rgba(194, 220, 255, .78), transparent 32%),
+        radial-gradient(ellipse at 92% 18%, rgba(221, 236, 255, .9), transparent 30%),
+        radial-gradient(ellipse at 55% 88%, rgba(230, 240, 255, .75), transparent 38%),
+        linear-gradient(135deg, #f6faff, #edf5ff 52%, #f7faff);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .nav {
+      position: sticky; top: 16px; z-index: 20; margin: 16px auto 0;
+      width: min(1240px, calc(100% - 40px)); min-height: 68px; padding: 0 20px 0 26px;
+      display: flex; align-items: center; justify-content: space-between; gap: 22px;
+      background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.9);
+      border-radius: 22px; box-shadow: 0 12px 38px rgba(37, 81, 141, .09);
+      backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 760; letter-spacing: .02em; white-space: nowrap; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: white; border-radius: 12px; background: linear-gradient(145deg, #78a7f2, #386fc5); font-size: 13px; }
+    .brand small { display: block; color: #344b67; font-size: 12px; line-height: 1.2; font-weight: 700; letter-spacing: .12em; }
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-links a { padding: 10px 13px; color: #2b4059; font-size: 16px; font-weight: 750; border-radius: 999px; transition: .2s ease; }
+    .nav-links a:hover, .nav-links a.active { color: white; background: #1d2a3b; }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 14px; padding: 13px 18px; font-size: 16px; font-weight: 800; transition: transform .2s, box-shadow .2s, background .2s; }
+    .nav-cta, .button.primary { color: white; background: var(--ink); box-shadow: 0 8px 18px rgba(21,36,59,.13); }
+    .button.secondary { color: var(--ink); border: 1px solid var(--line); background: rgba(255,255,255,.66); }
+    .button:hover, .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(37,83,145,.17); }
+    .menu-toggle { display: none; border: 0; background: transparent; color: var(--ink); font-size: 23px; }
+    .hero { min-height: 680px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 44px; padding: 72px 0 86px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px; color: #243d59; background: rgba(255,255,255,.9); border: 1px solid rgba(255,255,255,.98); border-radius: 999px; font-size: 15px; font-weight: 800; letter-spacing: .04em; }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #67b98b; box-shadow: 0 0 0 4px rgba(103,185,139,.15); }
+    h1 { margin: 27px 0 14px; font-size: clamp(58px, 7.5vw, 94px); line-height: .98; letter-spacing: -.065em; font-weight: 850; }
+    h1 span { display: block; color: #3270c8; }
+    .hero-role { display: flex; align-items: center; gap: 12px; margin: 22px 0; color: var(--blue-deep); font-size: clamp(18px, 2.2vw, 25px); font-weight: 750; }
+    .hero-role::after { content: ""; height: 5px; width: 108px; border-radius: 99px; background: #c5dcff; }
+    .hero-copy { max-width: 620px; color: #20364f; font-size: 22px; line-height: 1.8; }
+    .hero-copy strong { color: var(--ink); }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; margin: 24px 0 30px; }
+    .chip { padding: 8px 12px; border: 1px solid rgba(88,133,193,.28); border-radius: 10px; color: #243f60; background: rgba(255,255,255,.88); font-size: 15px; font-weight: 750; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+    .portrait-stage { position: relative; min-height: 510px; display: grid; place-items: center; isolation: isolate; }
+    .portrait-halo { position: absolute; z-index: -1; width: min(440px, 90%); aspect-ratio: 1; border-radius: 50%; background: linear-gradient(145deg, rgba(207,228,255,.9), rgba(229,241,255,.35)); border: 1px solid rgba(255,255,255,.85); box-shadow: inset 0 0 50px rgba(255,255,255,.75); }
+    .portrait-frame { position: relative; width: min(340px, 74%); height: 435px; overflow: hidden; border-radius: 180px 180px 28px 28px; background: linear-gradient(160deg, #8bb8f3, #d6e7ff); box-shadow: 20px 24px 0 rgba(110,157,222,.2), var(--shadow); transform: rotate(1deg); }
+    .portrait-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 62%, rgba(18,43,80,.27)); pointer-events: none; }
+    .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 23%; }
+    .float-card { position: absolute; z-index: 2; padding: 15px 18px; border: 1px solid rgba(255,255,255,.9); border-radius: 18px; background: rgba(255,255,255,.82); box-shadow: 0 14px 34px rgba(42,82,139,.13); backdrop-filter: blur(12px); }
+    .float-card small { display: block; color: #3c5573; font-size: 13px; font-weight: 850; letter-spacing: .12em; }
+    .float-card strong { display: block; margin-top: 3px; font-size: 17px; }
+    .float-card.one { top: 94px; left: 0; }
+    .float-card.two { right: -2px; bottom: 78px; }
+    .scroll-hint { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); color: #30465f; font-size: 15px; }
+    .scroll-hint span { display: inline-block; margin-left: 8px; color: var(--blue); animation: nudge 1.4s ease-in-out infinite; }
+    section.content-section {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 118px 0 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-margin-top: 0;
+    }
+    .content-section.wrap:not(#projects):not(#contact) { width: min(1480px, calc(100% - 72px)); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
+    .section-kicker { color: #28588f; font-size: 14px; letter-spacing: .13em; font-weight: 900; }
+    h2 { margin: 7px 0 0; font-size: clamp(38px, 5vw, 58px); line-height: 1.06; letter-spacing: -.055em; }
+    .section-desc { max-width: 460px; margin: 0 0 4px; color: var(--muted); font-size: 19px; line-height: 1.75; }
+    #about h2, #education h2, #experience h2, #skills h2 { font-size: clamp(46px, 5.4vw, 68px); }
+    #about .section-head, #education .section-head, #experience .section-head, #skills .section-head { margin-bottom: 42px; }
+    #about .section-desc, #education .section-desc, #experience .section-desc, #skills .section-desc { max-width: 520px; font-size: 20px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .panel { border: 1px solid rgba(255,255,255,.95); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); backdrop-filter: blur(14px); }
+    .about-card { min-height: 330px; padding: 40px 42px; }
+    .card-label { display: flex; align-items: center; gap: 10px; color: #344b65; font-size: 14px; letter-spacing: .08em; font-weight: 900; }
+    .label-icon { width: 33px; height: 33px; display: grid; place-items: center; color: #3975cb; background: #e5f0ff; border-radius: 12px; font-size: 15px; }
+    .about-card h3 { margin: 24px 0 12px; font-size: 29px; letter-spacing: -.03em; }
+    .about-card p { max-width: 620px; margin: 0; color: var(--muted); font-size: 20px; line-height: 1.85; }
+    .edu-photo { position: relative; overflow: hidden; min-height: 330px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .edu-photo img { position: absolute; width: 100%; height: 100%; object-fit: cover; inset: 0; }
+    .edu-photo::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(13,31,54,.72)); }
+    .edu-caption { position: absolute; z-index: 1; left: 32px; right: 32px; bottom: 26px; color: white; }
+    .edu-caption small { opacity: 1; font-size: 13px; letter-spacing: .12em; font-weight: 900; }
+    .edu-caption strong { display: block; font-size: 27px; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project-card { min-height: 370px; overflow: hidden; padding: 26px; display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 24px 58px rgba(39,83,145,.15); }
+    .project-top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+    .project-num { color: #2c5688; font: 900 14px/1.2 Inter, sans-serif; letter-spacing: .1em; }
+    .project-date { color: #2f435b; font-size: 15px; font-weight: 800; }
+    .project-card h3 { margin: 24px 0 8px; font-size: 29px; letter-spacing: -.035em; }
+    .project-sub { margin: 0; color: #2b4b70; font-size: 17px; font-weight: 800; }
+    .project-card p { color: var(--muted); font-size: 18px; line-height: 1.8; }
+    .project-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 7px 0 12px; }
+    .project-card:first-child .project-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .gallery-item { position: relative; min-width: 0; overflow: hidden; aspect-ratio: 1.55; border: 1px solid rgba(77,116,172,.13); border-radius: 13px; background: #e6eef8; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+    .gallery-item:hover img { transform: scale(1.045); }
+    .gallery-item span { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 11px 9px; color: white; font-size: 13px; font-weight: 850; background: linear-gradient(transparent, rgba(12,31,56,.9)); }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: auto 0 20px; }
+    .project-tags span { padding: 8px 11px; border-radius: 8px; color: #233f60; background: #e2edfb; font-size: 14px; font-weight: 800; }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; width: fit-content; color: #17467f; font-size: 16px; font-weight: 900; border: 0; background: none; cursor: pointer; }
+    .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .timeline-card { min-height: 300px; padding: 38px; }
+    #education .timeline-card { min-height: 360px; display: grid; grid-template-columns: .8fr 2fr; align-content: center; align-items: start; gap: 6px 42px; padding: 46px; }
+    #education .timeline-card .timeline-date { grid-row: 1 / span 3; padding-top: 10px; }
+    #education .timeline-card ul { margin-bottom: 0; }
+    .timeline-date { color: #2a4e78; font: 900 15px Inter, sans-serif; letter-spacing: .04em; }
+    .timeline-card h3 { margin: 10px 0 8px; font-size: 28px; }
+    .timeline-card p { margin: 0; color: var(--muted); font-size: 20px; }
+    .timeline-card ul { padding-left: 24px; color: #263b54; font-size: 20px; line-height: 1.85; }
+    .skill-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 28px; }
+    .skill-intro { padding: 42px; background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(220,235,255,.72)); }
+    .skill-intro h3 { font-size: 28px; margin: 20px 0 12px; }
+    .skill-intro p { color: var(--muted); font-size: 20px; line-height: 1.85; }
+    .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .skill { min-height: 152px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 22px; border: 1px solid rgba(255,255,255,.92); background: rgba(255,255,255,.78); box-shadow: 0 10px 28px rgba(39,83,145,.07); }
+    .skill b { font-size: 25px; }
+    .skill span { color: #2f435b; font-size: 18px; }
+    .contact { position: relative; overflow: hidden; padding: 44px; color: white; background: linear-gradient(120deg, #255bab, #5489d5 64%, #7aa6e5); box-shadow: 0 20px 52px rgba(39,83,145,.2); }
+    .contact::after { content: ""; position: absolute; width: 320px; height: 320px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; right: -40px; top: -170px; box-shadow: 0 0 0 40px rgba(255,255,255,.04), 0 0 0 80px rgba(255,255,255,.035); }
+    .contact h2 { font-size: clamp(34px, 4vw, 48px); }
+    .contact p { max-width: 620px; color: #fff; font-size: 19px; line-height: 1.8; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 23px; }
+    .contact-links a { position: relative; z-index: 1; padding: 13px 17px; border: 1px solid rgba(255,255,255,.6); border-radius: 12px; background: rgba(255,255,255,.19); font-size: 16px; font-weight: 800; }
+    footer { padding: 24px 0 38px; color: #30465f; font-size: 14px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    dialog { max-width: min(620px, calc(100% - 32px)); padding: 30px; border: 1px solid rgba(255,255,255,.9); border-radius: 24px; color: var(--ink); background: #f9fcff; box-shadow: 0 24px 90px rgba(14,36,66,.28); }
+    dialog::backdrop { background: rgba(19,36,59,.36); backdrop-filter: blur(5px); }
+    dialog h3 { margin: 8px 0; font-size: 27px; }
+    dialog p, dialog li { color: var(--muted); font-size: 18px; line-height: 1.75; }
+    .dialog-close { float: right; border: 0; background: #eaf2fc; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; }
+    @keyframes nudge { 50% { transform: translateY(4px); } }
+    @media (max-width: 900px) {
+      .nav-links { gap: 0; }
+      .nav-links a { padding: 9px 8px; font-size: 14px; }
+      .hero { gap: 16px; min-height: 610px; }
+      .portrait-stage { min-height: 440px; }
+      .portrait-frame { height: 380px; }
+    }
+    @media (max-width: 700px) {
+      .wrap, .content-section.wrap:not(#projects):not(#contact) { width: min(100% - 32px, 540px); }
+      .nav { width: calc(100% - 24px); top: 8px; min-height: 60px; padding: 0 14px 0 18px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 10px; flex-direction: column; align-items: stretch; background: rgba(255,255,255,.95); border: 1px solid white; border-radius: 18px; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 14px; }
+      .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 4px; padding: 70px 0 66px; }
+      .hero-copy { font-size: 18px; }
+      .hero h1 { font-size: clamp(58px, 16vw, 82px); }
+      .portrait-stage { min-height: 390px; grid-row: 1; margin-bottom: 6px; }
+      .portrait-frame { width: 250px; height: 330px; }
+      .portrait-halo { width: 330px; }
+      .float-card.one { left: 3px; top: 52px; }
+      .float-card.two { right: 0; bottom: 40px; }
+      .scroll-hint { display: none; }
+      section.content-section { min-height: auto; padding: 88px 0 48px; }
+      .section-head { display: block; margin-bottom: 24px; }
+      .section-desc { margin-top: 12px; }
+      .about-grid, .project-grid, .timeline, .skill-layout { grid-template-columns: 1fr; }
+      .about-card { min-height: auto; padding: 28px; }
+      .edu-photo { min-height: 220px; }
+      #about .section-desc, #education .section-desc, #experience .section-desc, #skills .section-desc { font-size: 18px; }
+      #education .timeline-card { min-height: auto; display: block; padding: 28px; }
+      #education .timeline-card .timeline-date { padding-top: 0; }
+      .timeline-card { min-height: auto; padding: 28px; }
+      .skill-intro { padding: 28px; }
+      .skill { min-height: 125px; padding: 18px; }
+      .project-card { min-height: 320px; }
+      .project-card:first-child .project-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact { padding: 30px 23px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="#home" aria-label="肖泊成作品集首页"><span class="brand-mark">肖</span><span>肖泊成<small>SOFTWARE ENGINEERING</small></span></a>
+    <button class="menu-toggle" aria-label="打开导航" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="#about">关于我</a><a href="#education">教育背景</a><a href="#experience">实践经历</a><a href="#projects">项目经历</a><a href="#skills">技术栈</a><a href="#contact">联系我</a>
+    </div>
+    <a class="nav-cta" href="#contact">联系我 <span>↗</span></a>
+  </nav>
+
+  <main>
+    <header class="hero wrap" id="home">
+      <div class="hero-text">
+        <div class="eyebrow">你好，很高兴认识你</div>
+        <h1>你好，<span>我是肖泊成</span></h1>
+        <div class="hero-role">软件工程 · 2025级</div>
+        <p class="hero-copy"><strong>把想法变成可用的软件。</strong><br>福州大学软件工程专业在读，喜欢从需求出发参与项目实现，在协作中持续打磨功能、体验与代码。</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">前后端开发</span><span class="chip">AI应用实践</span></div>
+        <div class="hero-actions"><a class="button primary" href="#projects">看看我的项目 <span>↘</span></a><a class="button secondary" href="#contact">联系我</a></div>
+      </div>
+      <div class="portrait-stage" aria-label="个人照片">
+        <div class="portrait-halo"></div>
+        <div class="float-card one"><small>FOCUS</small><strong>项目实践 · 工程成长</strong></div>
+        <div class="portrait-frame"><img src="个人证件照照片.jpg" alt="肖泊成证件照"></div>
+        <div class="float-card two"><small>NOW</small><strong>软件工程专业在读</strong></div>
+      </div>
+      <div class="scroll-hint">继续向下，了解更多 <span>↓</span></div>
+    </header>
+
+    <section class="content-section wrap" id="about">
+      <div class="section-head reveal"><div><div class="section-kicker">01 / PROFILE</div><h2>关于我</h2></div><p class="section-desc">以软件工程学习为基础，重视把技术落到具体功能和协作流程中。</p></div>
+      <div class="about-grid">
+        <article class="panel about-card reveal"><div class="card-label"><span class="label-icon">⌘</span>个人简介 · PROFILE</div><h3>专注项目实践的软件工程学生</h3><p>目前就读于福州大学软件工程专业。参与过日程规划与 AI 生成文本检测项目，承担功能开发、API 对接、团队协作和演示材料制作等工作。</p></article>
+        <article class="edu-photo reveal"><img src="学校大门照片.jpg" alt="福州大学校门"><div class="edu-caption"><small>FUZHOU UNIVERSITY</small><strong>福州大学 · 软件工程</strong></div></article>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="education">
+      <div class="section-head reveal"><div><div class="section-kicker">02 / EDUCATION</div><h2>教育背景</h2></div><p class="section-desc">持续夯实计算机基础，并通过团队项目积累软件开发经验。</p></div>
+      <article class="panel timeline-card reveal"><div class="timeline-date">2025.09 — 至今</div><h3>福州大学</h3><p>本科 · 软件工程 · 2025级</p><ul><li>综合排名：8 / 90；GPA：3.83 / 4.00</li><li>专业课程：算法与数据结构、计算机组成、数据库、软件测试、计算机系统、计算机科学导论</li><li>英语：CET-4（499）</li></ul></article>
+    </section>
+
+    <section class="content-section wrap" id="experience">
+      <div class="section-head reveal"><div><div class="section-kicker">03 / CAMPUS PRACTICE</div><h2>实践经历</h2></div><p class="section-desc">在学生组织中参与活动协作、组织统筹与项目分享。</p></div>
+      <div class="timeline">
+        <article class="panel timeline-card reveal"><div class="timeline-date">2025.09 — 2026.06</div><h3>福州大学校组织部 · 部员</h3><ul><li>担任校青马班副领队</li><li>参与团支部立项等志愿活动</li></ul></article>
+        <article class="panel timeline-card reveal"><div class="timeline-date">2025.09 — 至今</div><h3>福州大学梅努斯国际工程学院科创部</h3><ul><li>组织学院开展 ICT 宣讲会</li><li>组织“扶摇计划”科创朋辈分享会等活动</li></ul></article>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="projects">
+      <div class="section-head reveal"><div><div class="section-kicker">04 / SELECTED PROJECTS</div><h2>项目经历</h2></div><p class="section-desc">优先呈现实际参与的项目工作：从功能实现、接口联调到产品测试与展示。</p></div>
+      <div class="project-grid">
+        <article class="panel project-card reveal">
+          <div class="project-top"><span class="project-num">PROJECT 01</span><span class="project-date">2026.05</span></div>
+          <h3>日程规划项目</h3><p class="project-sub">项目负责人 · 功能开发与协作</p>
+          <p>负责前后端开发与 API 接口调用，支持 AI 拆解目标并生成计划；可从课表图片识别课程后填入网页，并接入高德地图 API 提供天气信息，遇到降雨时提醒用户。</p>
+          <div class="project-gallery" aria-label="日程规划项目截图">
+            <a class="gallery-item" href="日程项目.png" target="_blank" rel="noreferrer"><img src="日程项目.png" alt="日程目标输入与 AI 拆解界面"><span>目标输入与 AI 拆解</span></a>
+            <a class="gallery-item" href="日程项目2.png" target="_blank" rel="noreferrer"><img src="日程项目2.png" alt="AI 生成阶段任务的界面"><span>自动生成阶段计划</span></a>
+            <a class="gallery-item" href="日程项目根据图片可以自动识别课表进行填充.png" target="_blank" rel="noreferrer"><img src="日程项目根据图片可以自动识别课表进行填充.png" alt="课表识别后的课程录入界面"><span>课表识别与课程录入</span></a>
+          </div>
+          <div class="project-tags"><span>API 对接</span><span>前后端开发</span><span>AI 目标拆解</span><span>课表图片识别</span><span>高德天气提醒</span></div>
+          <button class="text-link" data-project="planner">查看项目要点 <span>↗</span></button>
+        </article>
+        <article class="panel project-card reveal">
+          <div class="project-top"><span class="project-num">PROJECT 02</span><span class="project-date">2026.02 — 2026.06</span></div>
+          <h3>AI 检测生成文本项目</h3><p class="project-sub">项目负责人之一 · 文本识别方向</p>
+          <p>参与搭建基于 TF-IDF 算法的文本特征提取模型，完成 AI 生成内容与人工原创文本的识别检测核心功能开发。</p>
+          <div class="project-gallery" aria-label="AI 检测生成文本项目图片">
+            <a class="gallery-item" href="ai检测生成文本项目.jpg" target="_blank" rel="noreferrer"><img src="ai检测生成文本项目.jpg" alt="AI 文本检测结果和分析页面"><span>文本分析与检测结果</span></a>
+            <a class="gallery-item" href="ai检测生成文本用hyperframe生成的视频封面.jpg" target="_blank" rel="noreferrer"><img src="ai检测生成文本用hyperframe生成的视频封面.jpg" alt="使用 HyperFrames 制作的项目演示视频封面"><span>项目演示视频封面</span></a>
+          </div>
+          <div class="project-tags"><span>TF-IDF</span><span>文本特征</span><span>识别检测</span><span>HyperFrames</span></div>
+          <button class="text-link" data-project="detector">查看项目要点 <span>↗</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="skills">
+      <div class="section-head reveal"><div><div class="section-kicker">05 / TECH STACK</div><h2>技术栈</h2></div><p class="section-desc">从编程基础到项目交付，持续扩展工程实践能力。</p></div>
+      <div class="skill-layout">
+        <article class="panel skill-intro reveal"><div class="card-label"><span class="label-icon">⌘</span>WHAT I WORK WITH</div><h3>用合适的技术解决实际问题</h3><p>具备 Python、Java、JavaScript 等语言基础；接触数据库、前后端开发、AI agent 应用、数据处理与 LaTeX 排版。</p></article>
+        <div class="skill-grid reveal"><div class="skill"><b>Python</b><span>数据处理 · 模型与脚本</span></div><div class="skill"><b>Java</b><span>面向对象 · 编程基础</span></div><div class="skill"><b>JavaScript</b><span>前端开发 · 交互实现</span></div><div class="skill"><b>AI / API</b><span>AI agent · 接口集成</span></div><div class="skill"><b>数据库</b><span>课程基础 · 项目应用</span></div><div class="skill"><b>LaTeX</b><span>论文排版 · 科研绘图</span></div></div>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="contact">
+      <div class="contact panel reveal"><div class="section-kicker" style="color:#d4e6ff">06 / CONTACT</div><h2>聊聊项目，<br>也欢迎认识我。</h2><p>如果你正在寻找一位愿意动手实践、认真协作的软件工程学生，欢迎通过邮件联系我。</p><div class="contact-links"><a href="mailto:1047649021@qq.com">✉ 1047649021@qq.com</a></div></div>
+    </section>
+  </main>
+  <footer class="wrap">© 2026 肖泊成 · 软件工程作品集</footer>
+
+  <dialog id="project-dialog"><button class="dialog-close" aria-label="关闭">×</button><div class="section-kicker">PROJECT NOTES</div><h3 id="dialog-title"></h3><p id="dialog-summary"></p><ul id="dialog-list"></ul></dialog>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) document.querySelectorAll('.nav-links a').forEach(link => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
+    }), { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => navObserver.observe(section));
+    const projectData = {
+      planner: { title: '日程规划项目', summary: '项目负责人。围绕目标拆解与计划制定，参与功能开发、接口联调及产品测试。', points: ['负责前后端开发与 API 接口调用。', '支持从课表图片识别课程信息并填入网页。', '接入高德地图 API 获取天气信息，并在下雨时提醒用户。', '实现 AI 辅助拆解目标、制订计划相关功能，并与团队协作完成产品测试。'] },
+      detector: { title: 'AI 检测生成文本项目', summary: '项目负责人之一。参与文本特征提取与 AI 生成内容识别检测功能开发。', points: ['基于 TF-IDF 算法搭建文本特征提取模型。', '参与 AI 生成内容与人工原创文本的识别检测核心功能开发。', '使用 HyperFrames 制作项目演示视频。'] }
+    };
+    const dialog = document.querySelector('#project-dialog');
+    document.querySelectorAll('[data-project]').forEach(button => button.addEventListener('click', () => {
+      const item = projectData[button.dataset.project];
+      document.querySelector('#dialog-title').textContent = item.title;
+      document.querySelector('#dialog-summary').textContent = item.summary;
+      document.querySelector('#dialog-list').innerHTML = item.points.map(point => `<li>${point}</li>`).join('');
+      dialog.showModal();
+    }));
+    document.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  </script>
+</body>
+</html>
